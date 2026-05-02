@@ -55,3 +55,6 @@ def signin(request):
             return render(request, 'fail.html')
 
     return render(request, 'signin.html')
+
+def error_404(request, exception):
+    return render(request, '404.html', status=404)
