@@ -59,6 +59,42 @@
             box-shadow: 0 10px 30px rgba(99, 102, 241, 0.5);
             background: #4f46e5;
         }
+        /* Favorite Button Styles */
+.fav-btn-container {
+    background-color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 20px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    color: #1e293b;
+    margin: 20px 0;
+    font-weight: 600;
+}
+
+#favorite { display: none; }
+
+#favorite:checked + .fav-btn-container svg {
+    fill: #ef4444;
+    stroke: #ef4444;
+    animation: heartButton 1s;
+}
+
+@keyframes heartButton {
+    0%, 50%, 100% { transform: scale(1); }
+    25%, 75% { transform: scale(1.3); }
+}
+
+.action { position: relative; overflow: hidden; display: grid; height: 24px; }
+.action span { grid-column: 1; grid-row: 1; transition: all .4s ease; }
+.option-1 { transform: translateY(0); opacity: 1; }
+.option-2 { transform: translateY(100%); opacity: 0; }
+
+#favorite:checked + .fav-btn-container .option-1 { transform: translateY(-100%); opacity: 0; }
+#favorite:checked + .fav-btn-container .option-2 { transform: translateY(0); opacity: 1; }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-6">
