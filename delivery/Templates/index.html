@@ -179,6 +179,63 @@
   border: none;
 }
     </style>
+    <script>
+// --- 1. Real-Time Clock & Date Logic ---
+function updateClock() {
+    const now = new Date();
+    
+    // Time Format: HH:MM
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    document.getElementById('current-time').innerText = `${hours}:${minutes}`;
+    
+    // Date Format: MON 05-02
+    const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    const dayName = days[now.getDay()];
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const date = now.getDate().toString().padStart(2, '0');
+    
+    document.getElementById('current-date').innerText = `${dayName} ${month}-${date}`;
+}
+
+// --- 2. Dynamic Weather Logic ---
+async function getWeather() {
+    const city = document.getElementById('city-input').value || 'Tirupati';
+    const apiKey = 'YOUR_OPENWEATHER_API_KEY'; // Replace with your key
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.cod === 200) {
+            // Update UI elements
+            document.getElementById('temp-display').innerText = `${Math.round(data.main.temp)}°`;
+            document.getElementById('city-display').innerText = data.name;
+            document.getElementById('weather-desc').innerText = data.weather[0].main;
+            document.getElementById('temp-range').innerText = 
+                `${Math.round(data.main.temp_max)}° / ${Math.round(data.main.temp_min)}°`;
+        } else {
+            alert("City not found. Please try again.");
+        }
+    } catch (error) {
+        console.error("Weather fetch failed:", error);
+    }
+}
+
+// --- 3. Initialization ---
+// Start the clock
+setInterval(updateClock, 1000);
+updateClock();
+
+// Load default weather (Tirupati)
+getWeather();
+
+// Listen for "Enter" key on search
+document.getElementById('city-input').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') getWeather();
+});
+</script>
 </head>
 <body class="min-h-screen flex items-center justify-center p-6">
     <div class="bg-mesh"></div>
@@ -213,6 +270,7 @@
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
         </svg>
       </div>
+        
       <div class="success-prompt-wrap">
         <p class="success-prompt-heading">Order completed</p>
         <div class="success-prompt-prompt">
@@ -226,6 +284,41 @@
     </div>
   </div>
 </div>
+            </div> 
+    </div>
+  </div>
+
+  <div class="card mx-auto mb-8">
+    <div style="padding: 10px; background: #ec7263; display: flex; gap: 5px;">
+      <input type="text" id="city-input" placeholder="Search city..." 
+             style="flex: 1; border-radius: 8px; border: none; padding: 5px; color: black;">
+      <button onclick="getWeather()" style="cursor: pointer; background: none; border: none;">🔍</button>
+    </div>
+
+    <section class="info-section">
+      <div class="background-design">
+        <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+      </div>
+      
+      <div class="left-side">
+        <div class="weather">
+          <div id="weather-desc">Loading...</div>
+        </div>
+        <div class="temperature" id="temp-display">--°</div>
+        <div class="range" id="temp-range">--°/--°</div>
+      </div>
+
+      <div class="right-side">
+        <div>
+          <div class="hour" id="current-time">00:00</div>
+          <div class="date" id="current-date">--- 00-00</div>
+        </div>
+        <div class="city" id="city-display">---</div>
+      </div>
+    </section>
+  </div>
+
+  
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="{% url 'open_signup' %}" class="btn-main text-center">Join the Club</a>
                 <a href="{% url 'open_signin' %}" class="px-8 py-[14px] rounded-xl border border-slate-700 font-bold hover:bg-slate-800 transition-all text-center">Sign In</a>
