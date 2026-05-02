@@ -16,12 +16,26 @@
         }
         /* Uiverse Matrix-Style Background influence */
         .bg-mesh {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 10% 10%, rgba(79, 70, 229, 0.1) 0%, transparent 30%);
-            z-index: -1;
-        }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  
+  --s: 90px; /* size */
+  --c-half-left: hsl(10, 50%, 50%); 
+  --c-half-right: hsl(40, 50%, 80%);
+  --c-bottom: hsl(180, 50%, 50%);
+
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    var(--c-half-left) 0deg 120deg,
+    var(--c-bottom) 120deg 240deg,
+    var(--c-half-right) 240deg 360deg
+  );
+  background-size: var(--s) var(--s);
+}
         /* Glassmorphism Card by csozidev */
         .hero-card {
             background: rgba(30, 41, 59, 0.5);
