@@ -183,11 +183,39 @@
         }
 
         @keyframes b { 100% { background-position: 50% 0, 60% 50%; } }
+
+        .back-home {
+  position: absolute;
+  bottom: 10%; /* Positions it clearly below the TV */
+  padding: 12px 24px;
+  background-color: #d36604; /* Matches the TV orange */
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 30px;
+  border: 2px solid #1d0e01;
+  box-shadow: 4px 4px 0px #1d0e01;
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+
+.back-home:hover {
+  transform: translateY(-3px);
+  background-color: #e69635;
+  box-shadow: 6px 6px 0px #1d0e01;
+}
     </style>
 </head>
 <body>
 
 <div class="main_wrapper">
+    <div class="text_404">
+    <div class="text_4041">4</div>
+    <div class="text_4042">0</div>
+    <div class="text_4043">4</div>
+  </div>
+
+  <a href="{% url 'landing' %}" class="back-home">Back to Mealmate</a>
     <div class="main">
         <div class="antenna">
             <div class="antenna_shadow"></div>
