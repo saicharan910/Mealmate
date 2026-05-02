@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MealMate 😋 | End Your Hunger</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #6366f1; --bg: #0f172a; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: white;
+            overflow-x: hidden;
+        }
+        /* Uiverse Matrix-Style Background influence */
+        .bg-mesh {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 10% 10%, rgba(79, 70, 229, 0.1) 0%, transparent 30%);
+            z-index: -1;
+        }
+        /* Glassmorphism Card by csozidev */
+        .hero-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        /* Cyberpunk Button style */
+        .btn-main {
+            background: var(--primary);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 14px;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.5);
+            background: #4f46e5;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+    <div class="bg-mesh"></div>
+    <main class="max-w-4xl w-full text-center">
+        <div class="hero-card p-10 md:p-20">
+            <div class="mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-widest">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                </span>
+                Hunger ends here
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-none">
+                MealMate <span class="text-indigo-500">🍔</span>
+            </h1>
+            <p class="text-lg text-slate-400 mb-10 max-w-lg mx-auto">
+                The most sophisticated food delivery platform. Real-time tracking, premium vendors, and instant satisfaction.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{% url 'open_signup' %}" class="btn-main text-center">Join the Club</a>
+                <a href="{% url 'open_signin' %}" class="px-8 py-[14px] rounded-xl border border-slate-700 font-bold hover:bg-slate-800 transition-all text-center">Sign In</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
