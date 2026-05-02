@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join MealMate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0f172a; color: white; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .signup-container {
+            background: #1e293b;
+            border-radius: 28px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+        }
+        .grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        @media (max-width: 640px) { .grid-layout { grid-template-columns: 1fr; } }
+        .form-input {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid #334155;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            font-size: 0.9rem;
+        }
+        .form-input:focus { border-color: #6366f1; }
+        label { font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+    <div class="signup-container w-full max-w-2xl p-8 md:p-12">
+        <h2 class="text-3xl font-bold mb-6">Create Account</h2>
+        <form action="{% url 'signup' %}" method="POST" class="space-y-6">
+            {% csrf_token %}
+            <div class="grid-layout">
+                <div>
+                    <label>Username</label>
+                    <input type="text" name="username" class="form-input" placeholder="sai_charan" required>
+                </div>
+                <div>
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-input" placeholder="sai@example.com" required>
+                </div>
+            </div>
+            <div class="grid-layout">
+                <div>
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-input" required>
+                </div>
+                <div>
+                    <label>Mobile</label>
+                    <input type="text" name="mobile" class="form-input" placeholder="+91 00000000" required>
+                </div>
+            </div>
+            <div>
+                <label>Address</label>
+                <textarea name="address" class="form-input h-24" placeholder="Your delivery location..." required></textarea>
+            </div>
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 py-4 rounded-xl font-bold transition-all shadow-lg">
+                Create Account
+            </button>
+        </form>
+    </div>
+</body>
+</html>
