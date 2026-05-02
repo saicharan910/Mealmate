@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | MealMate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="ambient-glow"></div>
+    <nav class="navbar">
+        <div class="nav-brand">MealMate<span>.</span></div>
+        <div style="display: flex; align-items: center; gap: var(--sp-2);">
+            <span style="color: var(--text-muted); font-weight: 500;">Hi, {{ user.username }}</span>
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--emerald); display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">
+                {{ user.username|make_list|first|upper }}
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header class="hero-section" style="text-align: left; margin: var(--sp-4) 0;">
+            <h1 style="font-size: 2.5rem; color: var(--text-main);">What's on the <span style="color: var(--emerald);">menu?</span></h1>
+        </header>
+
+        <section class="meal-grid">
+            <article class="glass-card" style="align-items: center; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: var(--sp-2);">🍔</div>
+                <h3 class="card-title">Fast Food</h3>
+                <p class="card-desc">Burgers, Fries & Shakes</p>
+                <button class="btn-primary" style="width: 100%; margin-top: var(--sp-2);">Browse</button>
+            </article>
+            <article class="glass-card" style="align-items: center; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: var(--sp-2);">🍕</div>
+                <h3 class="card-title">Italian</h3>
+                <p class="card-desc">Pizzas & Pasta</p>
+                <button class="btn-primary" style="width: 100%; margin-top: var(--sp-2);">Browse</button>
+            </article>
+            <article class="glass-card" style="align-items: center; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: var(--sp-2);">🥗</div>
+                <h3 class="card-title">Healthy</h3>
+                <p class="card-desc">Salads & Low Carb</p>
+                <button class="btn-primary" style="width: 100%; margin-top: var(--sp-2);">Browse</button>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
