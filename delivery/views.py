@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Customer
-
+from django.utils import timezone
+from django.db.models import Sum
 
 # Create your views here.
 # This renders your main landing page (index.html)
@@ -58,3 +59,19 @@ def signin(request):
 
 def error_404(request, exception):
     return render(request, '404.html', status=404)
+
+def calculate_daily_revenue():
+    today = timezone.now().date()
+
+    revenue_dict = Order.objects.filter(created_at__date=today).aggregate(Sum('price'))
+    
+    return revenue_dict['price__sum'] or 0
+    
+def admin_dashboard(request):
+    context = {
+        'total_orders': Order.objects.count(),
+        'active_users_count': User.objects.filter(is_active=True).count(),
+        'daily_revenue': calculate_daily_revenue(), 
+        'recent_activities': Activity.objects.all()[:5],
+    }
+    return render(request, 'admin_home.html', context)
