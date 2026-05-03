@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Customer
-from django.utils import timezone
+from .models import Customer, Order, Activity  
+from django.contrib.auth.models import User
 from django.db.models import Sum
 
 # Create your views here.
