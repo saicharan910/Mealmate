@@ -44,15 +44,15 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div class="stat-card">
                 <p class="text-slate-500 text-xs font-bold uppercase mb-1">Total Orders</p>
-                <h3 class="text-3xl font-black">1,482</h3>
+                <h3 class="text-3xl font-black">{{ total_orders }}</h3>
             </div>
             <div class="stat-card border-l-4 border-l-indigo-600">
                 <p class="text-slate-500 text-xs font-bold uppercase mb-1">Active Users</p>
-                <h3 class="text-3xl font-black text-indigo-600">549</h3>
+                <h3 class="text-3xl font-black text-indigo-600">{{ active_users_count }}</h3>
             </div>
             <div class="stat-card">
                 <p class="text-slate-500 text-xs font-bold uppercase mb-1">Daily Revenue</p>
-                <h3 class="text-3xl font-black">$4,200</h3>
+                <h3 class="text-3xl font-black">{{ daily_revenue }}</h3>
             </div>
         </div>
 
@@ -62,14 +62,18 @@
                 <!-- Activity Item -->
                 <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 text-xl">📦</div>
-                        <div>
-                            <p class="font-bold">New order from Sai Charan</p>
-                            <p class="text-xs text-slate-500">Order #MM-9021 • Tirupati</p>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-black uppercase">Success</span>
-                </div>
+                        <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold">
+                {{ activity.user_name|slice:":1" }} </div>
+            <div>
+                <p class="font-bold text-sm">{{ activity.user_name }}</p>
+                <p class="text-xs text-slate-500">{{ activity.time_ago }}</p>
+            </div>
+        </div>
+        <span class="text-sm font-bold text-slate-700">+ ${{ activity.amount }}</span>
+    </div>
+    {% empty %}
+    <p class="text-slate-400 text-sm italic">No recent activity found.</p>
+    {% endfor %}
             </div>
         </section>
     </main>
