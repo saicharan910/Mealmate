@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Customer, Order, Activity  
 from django.contrib.auth.models import User
 from django.db.models import Sum
+from django.utils import timezone
 
 # Create your views here.
 # This renders your main landing page (index.html)
