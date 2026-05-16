@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Restaurants | MealMate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* MONOCHROME PALETTE */
+            --ink-black: #181B19;
+            --pure-white: #FFFFFF;
+            --stark-gray: #FAF9F5;
+
+            /* PREMIUM NEUTRALS */
+            --bg-canvas: #FAF9F5;
+            --bg-surface: #FFFFFF;
+            --border-ink: #181B19;
+            --border-muted: #E2DFD8;
+            --text-primary: #181B19;
+            --text-secondary: #565C58;
+            --text-muted: #8E9691;
+
+            /* TYPOGRAPHY & PHYSICS */
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius-editorial: 8px;
+            --transition-premium: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-tactile: 4px 4px 0px 0px var(--border-ink);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* NAVIGATION BAR */
+        .editorial-nav {
+            background-color: var(--bg-surface);
+            border-bottom: 2px solid var(--border-ink);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editorial-nav-brand {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.04em;
+        }
+
+        /* CONTAINER LAYOUT */
+        .editorial-container {
+            max-width: 1100px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        .editorial-header {
+            margin-bottom: 2rem;
+        }
+
+        .editorial-meta-badge {
+            display: inline-block;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .editorial-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+        }
+
+        /* TABLE HOUSING */
+        .table-container {
+            background: var(--bg-surface);
+            border: 2px solid var(--border-ink);
+            border-radius: var(--radius-editorial);
+            box-shadow: var(--shadow-tactile);
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .editorial-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .editorial-table th {
+            background-color: #FAF9F5;
+            border-bottom: 2px solid var(--border-ink);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            padding: 1rem 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .editorial-table td {
+            border-bottom: 1px solid var(--border-muted);
+            padding: 1.25rem 1.5rem;
+            vertical-align: middle;
+        }
+
+        .editorial-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* IMAGES & THUMBNAILS */
+        .table-thumb {
+            width: 64px;
+            height: 48px;
+            object-fit: cover;
+            border: 2px solid var(--border-ink);
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* COMPONENTS & BADGES */
+        .badge {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 800;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            border: 2px solid var(--border-ink);
+        }
+
+        .badge-outline {
+            background-color: var(--bg-canvas);
+            color: var(--text-secondary);
+        }
+
+        .badge-dark {
+            background-color: var(--ink-black);
+            color: var(--pure-white);
+        }
+
+        /* INTERACTIVE BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-premium);
+            border: 2px solid var(--border-ink);
+            box-shadow: 2px 2px 0px 0px var(--border-ink);
+            border-radius: 4px;
+        }
+
+        .btn-ink {
+            background-color: var(--ink-black);
+            color: var(--pure-white);
+        }
+
+        .btn-neutral {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+        }
+
+        .btn:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0px 0px var(--border-ink);
+        }
+
+        .btn-ink:hover {
+            background-color: #333333;
+        }
+
+        .btn-neutral:hover {
+            background-color: var(--border-muted);
+        }
+
+        .btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px 0px var(--border-ink);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="editorial-nav">
+        <a href="/admin_dashboard/" class="editorial-nav-brand">MealMate Admin</a>
+        <a href="/open_add_restaurant/" class="btn btn-ink" style="padding: 0.6rem 1.2rem; font-size: 0.75rem;">
+            + Add Restaurant
+        </a>
+    </nav>
+
+    <main class="editorial-container">
+        <header class="editorial-header">
+            <div>
+                <span class="editorial-meta-badge">Control Console</span>
+                <h1 class="editorial-title">All Registered Restaurants</h1>
+            </div>
+        </header>
+
+        <div class="table-container">
+            <table class="editorial-table">
+                <thead>
+                    <tr>
+                        <th>Restaurant name</th>
+                        <th>Picture</th>
+                        <th>Cuisine</th>
+                        <th>Rating</th>
+                        <th style="text-align: right;">Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in restaurantList %}
+                    <tr>
+                        <td style="font-weight: 800; color: var(--text-primary); font-size: 1.1rem;">
+                            {{ r.name }}
+                        </td>
+                        <td>
+                            <img src="{{ r.picture }}" alt="{{ r.name }}" class="table-thumb">
+                        </td>
+                        <td>
+                            <span class="badge badge-outline">{{ r.cuisine }}</span>
+                        </td>
+                        <td>
+                            <span class="badge badge-dark">★ {{ r.rating }}</span>
+                        </td>
+                        <td>
+                            <div style="display: flex; gap: 0.5rem; justify-content: flex-end; width: 100%;">
+                                <a href="{% url 'open_update_restaurant' r.id %}" class="btn btn-neutral"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">
+                                    Edit Info
+                                </a>
+                                <a href="{% url 'open_update_menu' r.id %}" class="btn btn-neutral"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">
+                                    Edit Menu
+                                </a>
+                                <a href="{% url 'delete_restaurant' r.id %}" class="btn btn-ink"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;"
+                                    onclick="return confirm('Are you sure you want to delete this restaurant?');">
+                                    Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: var(--text-secondary); padding: 3rem;">
+                            No restaurants registered yet. Click "+ Add Restaurant" to get started.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</body>
+
+</html>

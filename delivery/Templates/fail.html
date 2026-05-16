@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Failed | MealMate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* STARK ERROR PALETTE */
+            --ink-black: #181B19;
+            --pure-white: #FFFFFF;
+            --error-red: #D4426D;
+            --stark-gray: #FAF9F5;
+
+            /* SYSTEM NEUTRALS */
+            --bg-canvas: #FAF9F5;
+            --bg-surface: #FFFFFF;
+            --border-ink: #181B19;
+            --text-primary: #181B19;
+            --text-secondary: #565C58;
+
+            /* TYPOGRAPHY & PHYSICS */
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius-editorial: 8px;
+            --transition-premium: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-tactile: 4px 4px 0px 0px var(--border-ink);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* CONTAINER LAYOUT */
+        .form-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .editorial-card {
+            background-color: var(--bg-surface);
+            border: 2px solid var(--border-ink);
+            border-radius: var(--radius-editorial);
+            box-shadow: var(--shadow-tactile);
+            width: 100%;
+            max-width: 440px;
+            padding: 2.5rem;
+            position: relative;
+            text-align: center;
+        }
+
+        /* Asymmetric top bar accent (Crimson Red) */
+        .editorial-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 24px;
+            width: 45px;
+            height: 4px;
+            background-color: var(--error-red);
+        }
+
+        .editorial-meta-badge {
+            display: inline-block;
+            color: var(--error-red);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        /* STARK ACTION BUTTON */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.9rem 1.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-premium);
+            border: 2px solid var(--border-ink);
+            background-color: var(--ink-black);
+            color: var(--pure-white);
+            box-shadow: 2px 2px 0px 0px var(--border-ink);
+        }
+
+        .btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px 0px var(--border-ink);
+            background-color: #333333;
+        }
+
+        .btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px 0px var(--border-ink);
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="form-container">
+        <div class="editorial-card">
+            <span class="editorial-meta-badge">Security Alert</span>
+            <h3>Login Failed!</h3>
+            <p>The username or password you entered is incorrect. Please verify your credentials and try again.</p>
+
+            <a href="{% url 'open_signin' %}" class="btn">Return to Sign In</a>
+        </div>
+    </main>
+
+</body>
+
+</html>

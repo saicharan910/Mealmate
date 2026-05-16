@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurants | MealMate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* BRAND ACCENT COLORS */
+            --emerald-green: #017349;
+            --vibrant-orange: #FF7700;
+            --deep-pink: #D4426D;
+
+            /* LIGHT PREMIUM NEUTRALS */
+            --bg-canvas: #FAF9F5;
+            --bg-surface: #FFFFFF;
+            --border-light: #E2DFD8;
+            --border-ink: #181B19;
+            --text-primary: #181B19;
+            --text-secondary: #565C58;
+            --pure-white: #FFFFFF;
+
+            /* TYPOGRAPHY & LAYOUT PHYSICS */
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius-card: 12px;
+            --radius-pill: 50px;
+            --transition-premium: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* STICKY APPLICATION NAVIGATION */
+        .editorial-nav {
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .editorial-nav-brand {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.04em;
+        }
+
+        .editorial-nav-brand span {
+            color: var(--vibrant-orange);
+        }
+
+        /* CORE CONTAINER */
+        .editorial-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        .editorial-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .editorial-meta-badge {
+            display: inline-block;
+            color: var(--deep-pink);
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.5rem;
+        }
+
+        .editorial-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            color: var(--text-primary);
+        }
+
+        .editorial-title em {
+            font-style: italic;
+            font-weight: 600;
+            color: var(--emerald-green);
+        }
+
+        /* RESPONSIVE CARD GRID CONTAINER */
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 640px) {
+            .restaurant-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .restaurant-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* INTERACTIVE CARD LAYOUT */
+        .restaurant-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(24, 27, 25, 0.03), 0 2px 4px -1px rgba(24, 27, 25, 0.02);
+            transition: var(--transition-premium);
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px -5px rgba(24, 27, 25, 0.08);
+            border-color: var(--vibrant-orange);
+        }
+
+        /* CARD TEXT BODY */
+        .card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .card-meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .restaurant-name {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        /* BRANDED RATING BADGE */
+        .rating-badge {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            background-color: var(--vibrant-orange);
+            color: var(--pure-white);
+            white-space: nowrap;
+        }
+
+        /* CUISINE TAGS */
+        .cuisine-pill {
+            display: inline-block;
+            align-self: flex-start;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.8rem;
+            font-weight: 700;
+            background-color: #F5F3ED;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* OUTLINE BUTTON MAPPED TO PRIMARY EXECUTIONS */
+        .btn-view-menu {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            border: 2px solid var(--emerald-green);
+            color: var(--emerald-green);
+            background-color: transparent;
+            text-align: center;
+            margin-top: auto;
+            width: 100%;
+            transition: var(--transition-premium);
+        }
+
+        .btn-view-menu:hover {
+            background-color: var(--emerald-green);
+            color: var(--pure-white);
+        }
+
+        /* INTERACTIVE SYSTEM NAVIGATION ACTION */
+        .btn-nav-profile {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--border-ink);
+            background-color: var(--bg-surface);
+            color: var(--text-primary);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            transition: var(--transition-premium);
+            box-shadow: 2px 2px 0px 0px var(--border-ink);
+            border-radius: 4px;
+        }
+
+        .btn-nav-profile:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0px 0px var(--border-ink);
+            border-color: var(--deep-pink);
+            color: var(--deep-pink);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="editorial-nav">
+        <a href="#" class="editorial-nav-brand">MealMate<span>.</span></a>
+        <a href="{% url 'profile' username %}" class="btn-nav-profile"
+            style="padding: 0.6rem 1.2rem; font-size: 0.75rem;">
+            My Profile
+        </a>
+    </nav>
+
+    <main class="editorial-container">
+
+        <header class="editorial-header">
+            <div>
+                <span class="editorial-meta-badge">Premium Selections</span>
+                <h1 class="editorial-title">Welcome <em>{{username}}!</em></h1>
+            </div>
+        </header>
+
+        <div class="restaurant-grid">
+            {% for r in restaurantList %}
+            <div class="restaurant-card">
+
+                <div class="card-content">
+                    <div class="card-meta-row">
+                        <h3 class="restaurant-name">{{ r.name }}</h3>
+
+                        <span class="rating-badge">
+                            ★ {{ r.rating }}
+                        </span>
+                    </div>
+
+                    <span class="cuisine-pill">{{ r.cuisine }}</span>
+
+                    <a href="{% url 'view_menu' r.id username %}" class="btn-view-menu">
+                        View Menu
+                    </a>
+                </div>
+
+            </div>
+            {% empty %}
+            <div
+                style="grid-column: 1 / -1; text-align: center; color: var(--text-secondary); padding: 5rem 2rem; background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: var(--radius-card);">
+                <p style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">No kitchens active right now</p>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">Please check back again later.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </main>
+
+</body>
+
+</html>

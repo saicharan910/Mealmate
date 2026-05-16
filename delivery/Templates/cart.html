@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart</title>
+    <style>
+        :root {
+            /* REQUIRED ACCENT COLORS */
+            --emerald-green: #017349;
+            /* Safe actions, validation, trust indicators */
+            --vibrant-orange: #FF7700;
+            /* Highlights, primary CTAs, active focus states */
+            --deep-pink: #D4426D;
+            /* Categorization badges, delete pathways */
+
+            /* PREMIUM NEUTRALS */
+            --bg-canvas: #FAF9F5;
+            /* Off-white editorial background */
+            --bg-surface: #FFFFFF;
+            /* Layered paper-white cards */
+            --border-ink: #181B19;
+            /* Sharp, high-contrast framing line */
+            --border-muted: #E2DFD8;
+            /* Soft divider lines */
+            --text-primary: #181B19;
+            /* High-density ink black */
+            --text-secondary: #565C58;
+            /* Warm charcoal body text */
+            --text-muted: #8E9691;
+            /* Muted metadata gray */
+
+            /* TYPOGRAPHY */
+            --font-heading: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+            /* LAYOUT PHYSICS */
+            --radius-editorial: 8px;
+            /* Sharp, clean, anti-cartoon edges */
+            --transition-premium: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-tactile: 4px 4px 0px 0px var(--border-ink);
+        }
+
+        /* RESET & DOCUMENT RULES */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .editorial-container {
+            max-width: 1120px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .editorial-container {
+                margin: 1.5rem auto;
+                padding: 0 1rem;
+            }
+        }
+
+        /* NAVIGATION BAR */
+        .editorial-nav {
+            background-color: var(--bg-surface);
+            border-bottom: 2px solid var(--border-ink);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .editorial-nav-brand {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.04em;
+        }
+
+        .editorial-nav-brand span {
+            color: var(--vibrant-orange);
+        }
+
+        /* TYPOGRAPHY COMPONENTS */
+        .editorial-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--border-ink);
+            padding-bottom: 1.5rem;
+            margin-bottom: 3.5rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .editorial-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            color: var(--text-primary);
+        }
+
+        .editorial-title em {
+            font-style: italic;
+            font-weight: 600;
+            color: var(--emerald-green);
+        }
+
+        .editorial-meta-badge {
+            display: inline-block;
+            color: var(--deep-pink);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        /* BUTTONS (No Glow, Tactile Depth) */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-premium);
+            border: 2px solid var(--border-ink);
+            background-color: transparent;
+            color: var(--text-primary);
+            position: relative;
+            box-shadow: 2px 2px 0px 0px var(--border-ink);
+        }
+
+        .btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px 0px var(--border-ink);
+        }
+
+        .btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px 0px var(--border-ink);
+        }
+
+        .btn-emerald {
+            background-color: var(--emerald-green);
+            color: var(--bg-canvas);
+        }
+
+        .btn-emerald:hover {
+            background-color: #015938;
+        }
+
+        .btn-neutral {
+            background-color: var(--bg-surface);
+        }
+
+        /* Specialized Delete pathway style - Slimmer circular button for Symbol */
+        .btn-remove {
+            background-color: var(--deep-pink);
+            color: var(--bg-canvas);
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            font-size: 1.25rem;
+            line-height: 1;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-remove:hover {
+            background-color: #b03254;
+        }
+
+        /* STRUCTURED TABLE CONTAINER */
+        .table-container {
+            background-color: var(--bg-surface);
+            border: 2px solid var(--border-ink);
+            border-radius: var(--radius-editorial);
+            overflow-x: auto;
+            box-shadow: var(--shadow-tactile);
+            margin-bottom: 3.5rem;
+        }
+
+        .editorial-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .editorial-table th {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 2px solid var(--border-ink);
+        }
+
+        .editorial-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-muted);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+
+        .editorial-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-thumb {
+            width: 100px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 2px solid var(--border-ink);
+        }
+
+        /* CART SPECIFIC LAYOUT */
+        .cart-item-title {
+            font-weight: 800;
+            color: var(--text-primary);
+            font-size: 1.15rem;
+            letter-spacing: -0.02em;
+        }
+
+        .cart-item-desc {
+            color: var(--text-secondary);
+            max-width: 320px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .cart-item-price {
+            text-align: right;
+            font-weight: 800;
+            color: var(--text-primary);
+            font-size: 1.15rem;
+        }
+
+        .cart-summary-footer {
+            margin-top: 3.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-surface);
+            border: 2px solid var(--border-ink);
+            padding: 2.5rem;
+            border-radius: var(--radius-editorial);
+            box-shadow: var(--shadow-tactile);
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        /* Asymmetric accent bar */
+        .cart-summary-footer::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 24px;
+            width: 45px;
+            height: 4px;
+            background-color: var(--vibrant-orange);
+        }
+
+        .cart-total-label {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .cart-total-amount {
+            font-size: 2.5rem;
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            line-height: 1;
+            font-weight: 800;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="editorial-nav">
+        <a href="{% url 'customer_home' username %}" class="editorial-nav-brand">MealMate<span>.</span></a>
+        <a href="{% url 'customer_home' username %}" class="btn btn-neutral"
+            style="padding: 0.6rem 1.2rem; font-size: 0.75rem;">← Back to Store</a>
+    </nav>
+
+    <main class="editorial-container">
+
+        <header class="editorial-header">
+            <div>
+                <span class="editorial-meta-badge">Order Basket</span>
+                <h1 class="editorial-title">Welcome, <em>{{ username }}!</em></h1>
+            </div>
+        </header>
+
+        <div class="table-container">
+            <table class="editorial-table">
+                <thead>
+                    <tr>
+                        <th style="width: 140px;">Item Image</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th style="text-align: right; width: 120px;">Price</th>
+                        <th style="text-align: center; width: 100px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in itemList %}
+                    <tr>
+                        <td>
+                            <img src="{{ item.picture }}" alt="{{ item.name }}" class="table-thumb">
+                        </td>
+                        <td class="cart-item-title">
+                            {{ item.name }}
+                        </td>
+                        <td class="cart-item-desc">
+                            {{ item.description }}
+                        </td>
+                        <td class="cart-item-price">
+                            ₹{{ item.price }}
+                        </td>
+                        <td style="text-align: center;">
+
+                            <form action="{% url 'remove_from_cart' username item.id %}" method="POST" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-remove" title="Remove from cart">
+                                    &times;
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5"
+                            style="text-align: center; padding: 5rem 2rem; color: var(--text-muted); font-size: 1.1rem; font-style: italic;">
+                            Your cart is currently empty.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <footer class="cart-summary-footer">
+            <div>
+                <span class="editorial-meta-badge" style="margin-bottom: 0.35rem;">Summary</span>
+                <div class="cart-total-label">
+                    Total Price: <span class="cart-total-amount">{{ total_price }}</span>
+                </div>
+            </div>
+
+            {% if itemList %}
+            <form action="{% url 'checkout' username %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-emerald" style="padding: 1.1rem 2.2rem; font-size: 0.9rem;">
+                    Proceed to Checkout
+                </button>
+            </form>
+            {% endif %}
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

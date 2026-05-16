@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem 1.5rem;">
+
+    <main class="editorial-form-box" style="max-width: 620px; width: 100%; text-align: left; margin: 0;">
+        <header
+            style="text-align: center; border-bottom: 2px solid var(--border-ink); padding-bottom: 2rem; margin-bottom: 2rem;">
+            <div
+                style="display: inline-flex; background: #E6F3EE; color: var(--emerald-green); border: 2px solid var(--border-ink); width: 64px; height: 64px; border-radius: 50%; align-items: center; justify-content: center; margin-bottom: 1rem; box-shadow: 2px 2px 0px 0px var(--border-ink);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+            </div>
+
+            <h1
+                style="font-family: var(--font-heading); font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem; line-height: 1.15;">
+                Thank you for your order, {{ username }}!
+            </h1>
+            <span class="badge badge-emerald">Order Verified</span>
+        </header>
+
+        <section
+            style="background-color: var(--bg-canvas); border: 2px solid var(--border-ink); border-radius: var(--radius-sharp); padding: 1.5rem; margin-bottom: 2rem; box-shadow: 3px 3px 0px 0px var(--border-ink);">
+            <h2
+                style="font-family: var(--font-sans); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                Delivery Destination
+            </h2>
+            <p style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); line-height: 1.4;">
+                {{ customer.address }}
+            </p>
+        </section>
+
+        <p
+            style="color: var(--text-secondary); text-align: center; margin-bottom: 2.5rem; font-size: 0.95rem; line-height: 1.6;">
+            Your order has been registered and is currently being prepared. It will arrive shortly. Thank you for
+            choosing Meal Mate!
+        </p>
+
+        <div style="text-align: center;">
+            {% if cart_items %}
+            <a href="{% url 'customer_menu' cart_items.0.restaurant.id username %}" class="btn btn-emerald"
+                style="width: 100%; padding: 1rem;">
+                Back to Restaurants
+            </a>
+            {% else %}
+            <a href="/" class="btn btn-outline" style="width: 100%; padding: 1rem;">
+                Back to Home
+            </a>
+            {% endif %}
+        </div>
+    </main>
+
+</body>
+
+</html>

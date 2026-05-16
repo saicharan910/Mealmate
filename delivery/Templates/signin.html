@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | MealMate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* REQUIRED ACCENT COLORS */
+            --emerald-green: #017349;
+            --vibrant-orange: #FF7700;
+            --deep-pink: #D4426D;
+
+            /* PREMIUM NEUTRALS */
+            --bg-canvas: #FAF9F5;
+            --bg-surface: #FFFFFF;
+            --border-ink: #181B19;
+            --border-muted: #E2DFD8;
+            --text-primary: #181B19;
+            --text-secondary: #565C58;
+            --text-muted: #8E9691;
+
+            /* TYPOGRAPHY & PHYSICS */
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius-editorial: 8px;
+            --transition-premium: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-tactile: 4px 4px 0px 0px var(--border-ink);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* NAVIGATION BAR */
+        .editorial-nav {
+            background-color: var(--bg-surface);
+            border-bottom: 2px solid var(--border-ink);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editorial-nav-brand {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.04em;
+        }
+
+        .editorial-nav-brand span {
+            color: var(--vibrant-orange);
+        }
+
+        /* MAIN CONTAINER & CARD */
+        .form-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .editorial-card {
+            background-color: var(--bg-surface);
+            border: 2px solid var(--border-ink);
+            border-radius: var(--radius-editorial);
+            box-shadow: var(--shadow-tactile);
+            width: 100%;
+            max-width: 440px;
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        /* Asymmetric top bar accent */
+        .editorial-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 24px;
+            width: 45px;
+            height: 4px;
+            background-color: var(--vibrant-orange);
+        }
+
+        .editorial-meta-badge {
+            display: inline-block;
+            color: var(--deep-pink);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .editorial-title {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        /* FORM ELEMENTS */
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .input-field {
+            width: 100%;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg-canvas);
+            border: 2px solid var(--border-ink);
+            border-radius: 4px;
+            color: var(--text-primary);
+            transition: var(--transition-premium);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--emerald-green);
+            background-color: var(--bg-surface);
+            box-shadow: 2px 2px 0px 0px var(--border-ink);
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.9rem 1.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-premium);
+            border: 2px solid var(--border-ink);
+            background-color: var(--emerald-green);
+            color: var(--bg-canvas);
+            box-shadow: 2px 2px 0px 0px var(--border-ink);
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px 0px var(--border-ink);
+            background-color: #015938;
+        }
+
+        .btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px 0px var(--border-ink);
+        }
+
+        .form-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-muted);
+            padding-top: 1.25rem;
+        }
+
+        .form-footer a {
+            color: var(--emerald-green);
+            font-weight: 700;
+            text-decoration: underline;
+        }
+
+        .form-footer a:hover {
+            color: var(--vibrant-orange);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="editorial-nav">
+        <a href="{% url 'index' %}" class="editorial-nav-brand">MealMate<span>.</span></a>
+    </nav>
+
+    <main class="form-container">
+        <div class="editorial-card">
+            <span class="editorial-meta-badge">Welcome Back</span>
+            <h1 class="editorial-title">Account Sign In</h1>
+
+            <form action="{% url 'signin' %}" method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" class="input-field" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="input-field" required>
+                </div>
+
+                <button type="submit" class="btn">Sign In</button>
+            </form>
+
+            <div class="form-footer">
+                New to MealMate? <a href="{% url 'open_signup' %}">Create an account</a>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

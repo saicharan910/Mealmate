@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Menu | MealMate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* STARK BLACK & WHITE PALETTE */
+            --ink-black: #181B19;
+            --pure-white: #FFFFFF;
+            --stark-gray: #FAF9F5;
+
+            /* SYSTEM NEUTRALS */
+            --bg-canvas: #FAF9F5;
+            --bg-surface: #FFFFFF;
+            --border-ink: #181B19;
+            --border-muted: #E2DFD8;
+            --text-primary: #181B19;
+            --text-secondary: #565C58;
+
+            /* METRICS & PHYSICS */
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius-editorial: 8px;
+            --transition-premium: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-tactile: 4px 4px 0px 0px var(--border-ink);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* NAVIGATION BAR */
+        .editorial-nav {
+            background-color: var(--bg-surface);
+            border-bottom: 2px solid var(--border-ink);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editorial-nav-brand {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.04em;
+        }
+
+        /* CONTAINER WORKSPACE LAYOUT */
+        .editorial-container {
+            max-width: 1200px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (min-width: 900px) {
+            .editorial-container {
+                grid-template-columns: 400px 1fr;
+                align-items: start;
+            }
+        }
+
+        .editorial-header {
+            grid-column: 1 / -1;
+            margin-bottom: -1rem;
+        }
+
+        .editorial-meta-badge {
+            display: inline-block;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .editorial-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+        }
+
+        /* FORM PANEL CARD */
+        .editorial-card {
+            background-color: var(--bg-surface);
+            border: 2px solid var(--border-ink);
+            border-radius: var(--radius-editorial);
+            box-shadow: var(--shadow-tactile);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .editorial-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 24px;
+            width: 45px;
+            height: 4px;
+            background-color: var(--ink-black);
+        }
+
+        .card-heading {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+
+        /* COMPONENT FIELD GROUPS */
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .input-field {
+            width: 100%;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg-canvas);
+            border: 2px solid var(--border-ink);
+            border-radius: 4px;
+            color: var(--text-primary);
+            transition: var(--transition-premium);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--ink-black);
+            background-color: var(--pure-white);
+            box-shadow: 2px 2px 0px 0px var(--border-ink);
+        }
+
+        textarea.input-field {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        /* INLINE CHECKBOX ALIGNMENT */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--ink-black);
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* DATA DISPLAY GRID HOUSING */
+        .table-container {
+            background: var(--bg-surface);
+            border: 2px solid var(--border-ink);
+            border-radius: var(--radius-editorial);
+            box-shadow: var(--shadow-tactile);
+            overflow: hidden;
+        }
+
+        .editorial-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .editorial-table th {
+            background-color: #FAF9F5;
+            border-bottom: 2px solid var(--border-ink);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            padding: 1rem 1.25rem;
+            text-transform: uppercase;
+        }
+
+        .editorial-table td {
+            border-bottom: 1px solid var(--border-muted);
+            padding: 1.25rem 1.25rem;
+            vertical-align: middle;
+        }
+
+        .editorial-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-thumb {
+            width: 56px;
+            height: 56px;
+            object-fit: cover;
+            border: 2px solid var(--border-ink);
+            border-radius: 4px;
+            display: block;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            border: 2px solid var(--border-ink);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-outline {
+            background-color: var(--bg-canvas);
+            color: var(--text-secondary);
+        }
+
+        .badge-dark {
+            background-color: var(--ink-black);
+            color: var(--pure-white);
+        }
+
+        /* STARK ACTION BUTTON */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.9rem 1.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-premium);
+            border: 2px solid var(--border-ink);
+            background-color: var(--ink-black);
+            color: var(--pure-white);
+            box-shadow: 2px 2px 0px 0px var(--border-ink);
+        }
+
+        .btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px 0px var(--border-ink);
+            background-color: #333333;
+        }
+
+        .btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px 0px var(--border-ink);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="editorial-nav">
+        <a href="/admin_dashboard/" class="editorial-nav-brand">MealMate Admin</a>
+    </nav>
+
+    <main class="editorial-container">
+        <header class="editorial-header">
+            <span class="editorial-meta-badge">Catalog Sync</span>
+            <h1 class="editorial-title">Menu Management</h1>
+        </header>
+
+        <div class="editorial-card">
+            <h2 class="card-heading">Add Menu Item</h2>
+            <form action="{% url 'update_menu' restaurant.id %}" method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="name">Item Name</label>
+                    <input type="text" id="name" name="name" class="input-field" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" class="input-field" required></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="price">Price</label>
+                    <input type="number" id="price" name="price" class="input-field" step="0.01" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="picture">Image URL</label>
+                    <input type="url" id="picture" name="picture" class="input-field" required>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="vegeterian" name="vegeterian">
+                    <label for="vegeterian">Vegetarian Selection</label>
+                </div>
+
+                <button type="submit" class="btn">Add Item</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <table class="editorial-table">
+                <thead>
+                    <tr>
+                        <th>Item details</th>
+                        <th>Picture</th>
+                        <th>Price</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in itemList %}
+                    <tr>
+                        <td>
+                            <div style="font-weight: 800; font-size: 1.05rem; margin-bottom: 0.25rem;">
+                                {{ item.name }}
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); max-width: 360px;">
+                                {{ item.description }}
+                            </div>
+                        </td>
+                        <td>
+                            {% if item.picture %}
+                            <img src="{{ item.picture }}" alt="{{ item.name }}" class="table-thumb">
+                            {% else %}
+                            <div class="table-thumb"
+                                style="background: var(--border-muted); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; color: var(--text-muted);">
+                                NO IMG</div>
+                            {% endif %}
+                        </td>
+                        <td style="font-weight: 800; font-size: 1.1rem;">
+                            ₹{{ item.price }}
+                        </td>
+                        <td>
+                            {% if item.vegeterian %}
+                            <span class="badge badge-outline">Veg</span>
+                            {% else %}
+                            <span class="badge badge-dark">Non-Veg</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" style="text-align: center; color: var(--text-secondary); padding: 4rem 2rem;">
+                            No menu items loaded for this restaurant outlet yet.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,389 @@
+/* ==========================================================================
+   THE BRAND COLOR SYSTEM (Your Variables)
+   ========================================================================== */
+:root {
+    /* Required Accents */
+    --emerald-green: #017349;
+    /* Primary safe actions, validation, trust indicators */
+    --vibrant-orange: #FF7700;
+    /* Highlights, core CTAs, active focus states */
+    --deep-pink: #D4426D;
+    /* Categorization badges, destructive pathways, delete routes */
+
+    /* Premium Editorial Neutrals */
+    --bg-canvas: #FAF9F5;
+    /* Off-white page canvas resembling book paper */
+    --bg-surface: #FFFFFF;
+    /* Pure white for layered interactive cards */
+    --bg-surface-dark: #1E2220;
+    /* Deep charcoal ink */
+    --border-ink: #181B19;
+    /* High-contrast structural line framing */
+    --border-muted: #E2DFD8;
+    /* Soft dividing line */
+    --text-primary: #181B19;
+    /* High-density carbon black */
+    --text-secondary: #565C58;
+    /* Slate charcoal */
+    --text-muted: #8E9691;
+    /* Soft muted sage-gray */
+
+    /* Typography */
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Spatial Settings & Layout Physics */
+    --radius-editorial: 8px;
+    /* Flat, crisp structural rounding */
+    --transition-premium: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    --shadow-tactile: 4px 4px 0px 0px var(--border-ink);
+}
+
+/* ==========================================================================
+   ELEMENT RESET & GRID RULES
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.editorial-container {
+    max-width: 1120px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .editorial-container {
+        margin: 1.5rem auto;
+        padding: 0 1rem;
+    }
+}
+
+/* ==========================================================================
+   NAVIGATION BAR
+   ========================================================================== */
+.editorial-nav {
+    background-color: var(--bg-surface);
+    border-bottom: 2px solid var(--border-ink);
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.editorial-nav-brand {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.editorial-nav-brand span {
+    color: var(--vibrant-orange);
+    font-family: var(--font-sans);
+}
+
+/* ==========================================================================
+   TYPOGRAPHY ELEMENTS
+   ========================================================================== */
+.editorial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid var(--border-ink);
+    padding-bottom: 1.5rem;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.editorial-title {
+    font-family: var(--font-heading);
+    font-size: 2.25rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    color: var(--text-primary);
+}
+
+.editorial-title em {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--emerald-green);
+}
+
+.editorial-meta-badge {
+    display: inline-block;
+    color: var(--deep-pink);
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   TACTILE TIGHT-OUTLINE BUTTONS (Non-AI, Anti-Glass Aesthetic)
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: 4px;
+    /* Sharp corners support the editorial aesthetic */
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition-premium);
+    border: 2px solid var(--border-ink);
+    background-color: transparent;
+    color: var(--text-primary);
+    position: relative;
+    box-shadow: 2px 2px 0px 0px var(--border-ink);
+}
+
+.btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0px 0px var(--border-ink);
+}
+
+.btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0px 0px var(--border-ink);
+}
+
+/* Modifier Button Accents mapping to your colors */
+.btn-emerald {
+    background-color: var(--emerald-green);
+    color: var(--bg-canvas);
+}
+
+.btn-emerald:hover {
+    background-color: #015938;
+}
+
+.btn-orange {
+    background-color: var(--vibrant-orange);
+    color: var(--bg-canvas);
+}
+
+.btn-orange:hover {
+    background-color: #e06900;
+}
+
+.btn-pink {
+    background-color: var(--deep-pink);
+    color: var(--bg-canvas);
+}
+
+.btn-pink:hover {
+    background-color: #b53258;
+}
+
+.btn-neutral {
+    background-color: var(--bg-surface);
+}
+
+.btn-outline {
+    background-color: transparent;
+}
+
+/* ==========================================================================
+   EDITORIAL WORKSPACE & GRID STRUCTURES
+   ========================================================================== */
+.editorial-card {
+    background-color: var(--bg-surface);
+    border: 2px solid var(--border-ink);
+    border-radius: var(--radius-editorial);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-tactile);
+    transition: var(--transition-premium);
+    position: relative;
+}
+
+.editorial-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px 0px var(--border-ink);
+}
+
+/* ==========================================================================
+   HIGH-CONTRAST DATA TABLES
+   ========================================================================== */
+.table-container {
+    background-color: var(--bg-surface);
+    border: 2px solid var(--border-ink);
+    border-radius: var(--radius-editorial);
+    overflow-x: auto;
+    box-shadow: var(--shadow-tactile);
+    margin-bottom: 3.5rem;
+}
+
+.editorial-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.editorial-table th {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-weight: 800;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 2px solid var(--border-ink);
+}
+
+.editorial-table td {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-muted);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+.editorial-table tr:last-child td {
+    border-bottom: none;
+}
+
+.editorial-table tbody tr:hover td {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+}
+
+/* Interactive Image Previews */
+.table-thumb {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 2px solid var(--border-ink);
+}
+
+/* ==========================================================================
+   FORM WRAPPERS & INPUT FIELDS
+   ========================================================================== */
+.editorial-form-box {
+    background-color: var(--bg-surface);
+    border: 2px solid var(--border-ink);
+    border-radius: var(--radius-editorial);
+    padding: 3rem;
+    box-shadow: var(--shadow-tactile);
+    max-width: 580px;
+    margin: 4rem auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.75rem;
+}
+
+.form-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.form-input,
+.form-textarea {
+    background-color: var(--bg-canvas);
+    border: 2px solid var(--border-ink);
+    border-radius: 4px;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--text-primary);
+    padding: 0.9rem;
+    transition: var(--transition-premium);
+    width: 100%;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    background-color: var(--bg-surface);
+    border-color: var(--vibrant-orange);
+    box-shadow: 3px 3px 0px 0px var(--border-ink);
+}
+
+.form-textarea {
+    resize: none;
+    min-height: 120px;
+}
+
+/* Checkbox alignment helper */
+.form-checkbox-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+}
+
+.form-checkbox-row input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--emerald-green);
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   REUSABLE BADGES
+   ========================================================================== */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: 2px solid var(--border-ink);
+}
+
+.badge-emerald {
+    background-color: var(--emerald-green);
+    color: var(--bg-canvas);
+}
+
+.badge-orange {
+    background-color: var(--vibrant-orange);
+    color: var(--bg-canvas);
+}
+
+.badge-pink {
+    background-color: var(--deep-pink);
+    color: var(--bg-canvas);
+}
+
+.badge-outline {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+}

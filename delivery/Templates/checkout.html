@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Meal Mate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        :root {
+            /* REQUIRED BRAND ACCENTS */
+            --emerald-green: #017349;
+            --vibrant-orange: #FF7700;
+            --deep-pink: #D4426D;
+
+            /* LIGHT PREMIUM NEUTRALS */
+            --bg-canvas: #FAF9F5;
+            --bg-surface: #FFFFFF;
+            --border-light: #E2DFD8;
+            --border-ink: #181B19;
+            --text-primary: #181B19;
+            --text-secondary: #565C58;
+            --pure-white: #FFFFFF;
+
+            /* LAYOUT PHYSICS & METRICS */
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius-card: 12px;
+            --transition-premium: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-tactile: 4px 4px 0px 0px var(--border-ink);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1.5rem;
+        }
+
+        /* CARD MAIN MODULE */
+        .checkout-box {
+            background-color: var(--bg-surface);
+            border: 2px solid var(--border-ink);
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-tactile);
+            width: 100%;
+            max-width: 540px;
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        /* Top card border decoration tag matching design tokens */
+        .checkout-box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 24px;
+            width: 45px;
+            height: 4px;
+            background-color: var(--emerald-green);
+        }
+
+        .checkout-header {
+            text-align: center;
+            border-bottom: 2px solid var(--border-ink);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .editorial-meta-badge {
+            display: inline-block;
+            color: var(--deep-pink);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .checkout-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ERROR DIALOG HOUSING */
+        .error-alert-box {
+            background-color: #FDF1F4;
+            border: 2px solid var(--border-ink);
+            border-left: 6px solid var(--deep-pink);
+            padding: 1.25rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+            box-shadow: 2px 2px 0px 0px var(--border-ink);
+        }
+
+        .error-alert-title {
+            color: var(--deep-pink);
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        /* DATA GRID TABLE HOUSING */
+        .table-container {
+            background: var(--bg-surface);
+            border: 2px solid var(--border-ink);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .editorial-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .editorial-table th {
+            background-color: #FAF9F5;
+            border-bottom: 2px solid var(--border-ink);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            padding: 1rem 1.25rem;
+            text-transform: uppercase;
+        }
+
+        .editorial-table td {
+            border-bottom: 1px solid var(--border-muted);
+            padding: 1.1rem 1.25rem;
+            font-size: 0.95rem;
+        }
+
+        .editorial-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .tax-row {
+            border-top: 2px dashed var(--border-ink);
+            background-color: var(--bg-canvas);
+        }
+
+        /* TOTAL PAYABLE DISPATCH SUMMARY WINDOW */
+        .summary-total-strip {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-canvas);
+            border: 2px solid var(--border-ink);
+            padding: 1.25rem;
+            border-radius: 8px;
+            box-shadow: 2px 2px 0px 0px var(--border-ink);
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-label {
+            font-weight: 800;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+        }
+
+        .summary-amount {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+        }
+
+        /* PRIMARY INTERACTIVE PAYMENT BUTTON CONTROL */
+        .btn-pay {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 1.1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-premium);
+            border: 2px solid var(--border-ink);
+            background-color: var(--emerald-green);
+            color: var(--bg-canvas);
+            box-shadow: 3px 3px 0px 0px var(--border-ink);
+        }
+
+        .btn-pay:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0px 0px var(--border-ink);
+            background-color: #015938;
+        }
+
+        .btn-pay:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px 0px var(--border-ink);
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="checkout-box">
+        <header class="checkout-header">
+            <span class="editorial-meta-badge">Secure Gateway</span>
+            <h1 class="checkout-title">Checkout</h1>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                Customer: <strong style="color: var(--text-primary);">{{ username }}</strong>
+            </p>
+        </header>
+
+        {% if error %}
+        <div class="error-alert-box">
+            <p class="error-alert-title">Payment Error</p>
+            <p style="color: var(--text-primary); font-size: 0.95rem;">{{ error }}</p>
+        </div>
+        {% else %}
+
+        <div class="table-container">
+            <table class="editorial-table">
+                <thead>
+                    <tr>
+                        <th>Item Details</th>
+                        <th style="text-align: right;">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr class="cart-item-row">
+                        <td style="font-weight: 700; color: var(--text-primary);">{{ item.name }}</td>
+                        <td style="text-align: right; font-weight: 800; color: var(--text-primary);">₹{{ item.price }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr class="tax-row">
+                        <td style="font-weight: 700; color: var(--text-secondary); font-style: italic;">GST (18%)</td>
+                        <td id="gst-display" style="text-align: right; font-weight: 800; color: var(--text-secondary);">
+                            ₹0.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="summary-total-strip">
+            <span class="summary-label">Total Payable Amount:</span>
+            <strong id="total-display" class="summary-amount">₹0.00</strong>
+        </div>
+
+        <button id="rzp-button" class="btn-pay">
+            Pay with Razorpay
+        </button>
+        {% endif %}
+    </main>
+
+    {{ razorpay_key_id|json_script:"razorpay-key-id" }}
+    {{ amount_paise|json_script:"amount-paise" }}
+    {{ order_id|json_script:"order-id" }}
+    {{ username|json_script:"username" }}
+
+    <script>
+        const razorpayKeyId = JSON.parse(document.getElementById('razorpay-key-id').textContent);
+        const amountPaise = JSON.parse(document.getElementById('amount-paise').textContent);
+        const orderId = JSON.parse(document.getElementById('order-id').textContent);
+        const username = JSON.parse(document.getElementById('username').textContent);
+
+        var options = {
+            "key": razorpayKeyId,
+            "amount": amountPaise,
+            "currency": "INR",
+            "name": "Meal Mate",
+            "description": "Order Payment",
+            "order_id": orderId,
+            "handler": function (response) {
+                const redirectUrl = "{% url 'orders' 'placeholder_username' %}".replace('placeholder_username', encodeURIComponent(username));
+                window.location.href = redirectUrl;
+            },
+            "prefill": {
+                "name": username,
+                "email": "customer@example.com",
+                "contact": "9999999999"
+            },
+            "theme": {
+                "color": "#017349"
+            }
+        };
+
+        var rzp = new Razorpay(options);
+
+        document.getElementById('rzp-button').onclick = function (e) {
+            rzp.open();
+            e.preventDefault();
+        }
+
+        function updateCheckoutTotal() {
+            const priceCells = document.querySelectorAll('table tr.cart-item-row td:nth-child(2)');
+            let subtotal = 0;
+
+            priceCells.forEach(cell => {
+                const priceText = cell.textContent.replace(/[₹,]/g, '').trim();
+                const priceValue = parseFloat(priceText);
+
+                if (!isNaN(priceValue)) {
+                    subtotal += priceValue;
+                }
+            });
+
+            const gstAmount = subtotal * 0.18;
+            const grandTotal = subtotal + gstAmount;
+
+            const gstDisplay = document.getElementById('gst-display');
+            if (gstDisplay) {
+                gstDisplay.innerText = `₹${gstAmount.toFixed(2)}`;
+            }
+
+            const display = document.getElementById('total-display');
+            if (display) {
+                display.innerText = `₹${grandTotal.toFixed(2)}`;
+            }
+        }
+
+        window.onload = updateCheckoutTotal;
+    </script>
+</body>
+
+</html>

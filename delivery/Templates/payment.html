@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Payment | MealMate</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f5f7;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .option {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .option.active {
+            border-color: #b84c4c;
+            background: #fdf2f2;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #b84c4c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .tip-btn {
+            padding: 8px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .tip-btn.active {
+            background: #b84c4c;
+            color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- 🔔 SOUND -->
+    <audio id="order-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-bell-notification-933.mp3"></audio>
+
+    <div class="container">
+
+        <h2>Select Payment Method</h2>
+
+        <div class="option" onclick="selectPayment(this)">💵 Cash on Delivery</div>
+        <div class="option" onclick="selectPayment(this)">📱 UPI (GPay / PhonePe)</div>
+        <div class="option" onclick="selectPayment(this)">💳 Debit Card</div>
+        <div class="option" onclick="selectPayment(this)">💳 Credit Card</div>
+        <div class="option" onclick="selectPayment(this)">🏦 Net Banking</div>
+
+        <!-- TIP -->
+        <div style="margin-top:25px;">
+            <h3>Add Tip</h3>
+
+            <button class="tip-btn" onclick="selectTip(this,10)">₹10</button>
+            <button class="tip-btn" onclick="selectTip(this,20)">₹20</button>
+            <button class="tip-btn" onclick="selectTip(this,50)">₹50</button>
+            <button class="tip-btn" onclick="selectTip(this,0)">No Tip</button>
+
+            <p id="tip-display">Tip: ₹0</p>
+        </div>
+
+        <button onclick="pay()">Proceed to Pay</button>
+
+    </div>
+
+    <script>
+        let selectedPayment = null;
+        let selectedTip = 0;
+
+        // select payment
+        function selectPayment(el) {
+            document.querySelectorAll(".option").forEach(o => o.classList.remove("active"));
+            el.classList.add("active");
+            selectedPayment = el.innerText;
+        }
+
+        // select tip
+        function selectTip(el, amount) {
+            document.querySelectorAll(".tip-btn").forEach(b => b.classList.remove("active"));
+            el.classList.add("active");
+
+            selectedTip = amount;
+            document.getElementById("tip-display").innerText = "Tip: ₹" + amount;
+        }
+
+        // pay function
+        function pay() {
+
+            if (!selectedPayment) {
+                alert("Please select a payment method");
+                return;
+            }
+
+            localStorage.setItem("tip", selectedTip);
+
+            document.body.innerHTML = `
+        <div style="display:flex;justify-content:center;align-items:center;height:100vh;flex-direction:column;">
+            <h2>⏳ Proceeding your order...</h2>
+            <p>${selectedPayment}</p>
+        </div>
+    `;
+
+            setTimeout(() => {
+
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                localStorage.setItem("order", JSON.stringify(cart));
+                // ✅ PLAY SOUND FIRST (before DOM change)
+                const sound = document.getElementById("order-sound");
+                if (sound) {
+                    sound.play().catch(() => { });
+                }
+
+                document.body.innerHTML = `
+        <div style="display:flex;justify-content:center;align-items:center;height:100vh;flex-direction:column;">
+            <h2>✅ Your order is placed!</h2>
+            <p>Redirecting...</p>
+        </div>
+    `;
+
+
+                // ✅ IMMEDIATE REDIRECT
+                window.location.href = "/orders/";
+
+            }, 8000);
+        }
+    </script>
+
+</body>
+
+</html>
